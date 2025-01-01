@@ -21,91 +21,118 @@ Serving the HTML pages.
 Testing the webserver.
 
 # PROGRAM:
-
-```<!DOCTYPE html>
-<html>
+```
+from http.server import HTTPServer, BaseHTTPRequestHandler
+content = """
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Device Specifications</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Specifications</title>
     <style>
         body {
-            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            margin: 20px;
-            background-color:darkolivegreen;
+            font-family: Arial, sans-serif;
+            background-color: rgb(249, 247, 248);
+          
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300vh;
+        }
+        .specs-container {
+            background-color:rgb(104, 58, 182);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: beige;
+            width: 600px;
+        }
+        h1 {
+            text-align: center;
+            color:rgb(20, 207, 120);
         }
         table {
-            width: 60%;
+            width: 100%;
             border-collapse: collapse;
-            margin: 20px auto;
-            background: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         th, td {
+            padding: 10px;
             text-align: left;
-            padding: 12px;
-            border: 1px solid #ddd;
+            border-bottom: 1px solid rgb(165, 158, 158);
         }
         th {
-            background-color: #0078D7;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color:aqua;
-        }
-        tr:hover {
-            background-color:cornsilk;
-        }
-        caption {
-            font-size: 20px;
-            font-weight: bold;
-            padding: 10px;
-            text-align: center;
+            background-color: #c3c5cb;
         }
     </style>
 </head>
 <body>
-    <table>
-        <caption>Device Specifications</caption>
-        <tr>
-            <th>Specification</th>
-            <th>Details</th>
-        </tr>
-        <tr>
-            <td>Device Name</td>
-            <td>LAPTOP-OK438C1K</td>
-        </tr>
-        <tr>
-            <td>Processor</td>
-            <td>12th Gen Intel(R) Core(TM) i3-1215U 1.20 GHz</td>
-        </tr>
-        <tr>
-            <td>Installed RAM</td>
-            <td>8.00 GB (7.68 GB usable)</td>
-        </tr>
-        <tr>
-            <td>Device ID</td>
-            <td>FED1B711-7C21-464A-9BAA-30A98F1765ED</td>
-        </tr>
-        <tr>
-            <td>Product ID</td>
-            <td>00356-24754-57891-AAOEM</td>
-        </tr>
-        <tr>
-            <td>System Type</td>
-            <td>64-bit operating system, x64-based processor</td>
-        </tr>
-        <tr>
-            <td>Pen and Touch</td>
-            <td>No pen or touch input is available for this display</td>
-        </tr>
-    </table>
+    <div class="specs-container">
+        <h1>Laptop Specifications<br>BALA B<br>24900698</h1>
+        <table>
+            <tr>
+                <th>Specification</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td>Brand</td>
+                <td>LENOVO</td>
+            </tr>
+            <tr>
+                <td>Model</td>
+                <td>ThinkPad E16 Gen 1</td>
+            </tr>
+            <tr>
+                <td>Processor</td>
+                <td>13th Gen Intel(R) Core(TM) i5-1335U   1.30 GHz</td>
+            </tr>
+            <tr>
+                <td>RAM</td>
+                <td>16 GB (15.7 GB usable)</td>
+            </tr>
+            <tr>
+                <td>Storage</td>
+                <td>350.8 GB</td>
+            </tr>
+            <tr>
+                <td>Graphics</td>
+                <td>NVIDIA GeForce GTX 1650</td>
+            </tr>
+            <tr>
+                <td>Display</td>
+                <td>16inch Full HD</td>
+            </tr>
+            <tr>
+                <td>Battery Life</td>
+                <td>Up to 48 hours</td>
+            </tr>
+            <tr>
+                <td>Operating System</td>
+                <td>Windows 11</td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td>70000 INR</td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>
+"""
+class myhandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        print("request received")
+        self.send_response(200)
+        self.send_header('content-type', 'text/html; charset=utf-8')
+        self.end_headers()
+        self.wfile.write(content.encode())
+server_address = ('',8000)
+httpd = HTTPServer(server_address,myhandler)
+print("my webserver is running...")
+httpd.serve_forever()
 ```
 
 # OUTPUT:
-![Screenshot 2024-12-07 102229](https://github.com/user-attachments/assets/3fd58047-534a-44c6-9fe3-d4aa182da215)
-![Screenshot 2024-12-07 102116](https://github.com/user-attachments/assets/0eae00fd-42bf-4712-9666-4f4821ea00d8)
-
-
+![Screenshot 2025-01-01 103723](https://github.com/user-attachments/assets/88212ee5-8fd1-4130-9a2c-59e7e9f0f336)
+![Screenshot 2025-01-01 103146](https://github.com/user-attachments/assets/7aca9ace-b44d-4cb4-81dc-e1e1408714c4)
 # RESULT:
 The program for implementing simple webserver is executed successfully.
